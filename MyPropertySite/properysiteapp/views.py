@@ -4,9 +4,9 @@ from django.template import Context
 from django.template.loader import get_template
 from MyPropertySite.properysiteapp.models import PropertyAdvertisement
 from django.core.paginator import Paginator
+from django.shortcuts import render_to_response, get_object_or_404
 
 def home(request):
-    template = get_template('home.html')
     properties=PropertyAdvertisement.objects.all()
     paginator= Paginator(properties, 20, 0, False)
     page=paginator.page(1)
@@ -17,5 +17,9 @@ def home(request):
         'num_of_pages':paginator.num_pages,
         'count':paginator.count
     })
-    output = template.render(variables)
-    return HttpResponse(output)
+    return render_to_response('home.html',variables)
+
+def detail(request,ad_id)
+	 ad = get_object_or_404(PropertyAdvertisement, pk=ad_id)
+    return render_to_response('ads/detail.html', {'ad': ad})
+
