@@ -17,5 +17,6 @@ def home(request):
         'num_of_pages':paginator.num_pages,
         'count':paginator.count
     })
+    
     output = template.render(variables)
     return HttpResponse(output)
